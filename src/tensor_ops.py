@@ -8,3 +8,6 @@ def flatten_batch(x: torch.Tensor) -> torch.Tensor:
 def flatten_batch_reshape(x:torch.Tensor) -> torch.Tensor:
     B = x.shape[0]
     return torch.reshape(x, (B, -1))
+
+def channels_last(x:torch.Tensor) -> torch.Tensor:
+    return torch.permute(x,(0,2,3,1))
