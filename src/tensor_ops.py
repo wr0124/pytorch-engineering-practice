@@ -11,3 +11,6 @@ def flatten_batch_reshape(x:torch.Tensor) -> torch.Tensor:
 
 def channels_last(x:torch.Tensor) -> torch.Tensor:
     return torch.permute(x,(0,2,3,1))
+
+def spatial_mean(x:torch.Tensor)->torch.Tensor:
+    return torch.mean(x, dim=(2,3), keepdim=True)
