@@ -17,3 +17,7 @@ def spatial_mean(x:torch.Tensor)->torch.Tensor:
 
 def channel_mean(x:torch.Tensor) -> torch.Tensor:
     return torch.mean(x, dim = 1, keepdim=True )
+
+
+def add_channel_dim(x:torch.Tensor) -> torch.Tensor:
+    return torch.unsqueeze(x,1)

@@ -1,6 +1,7 @@
 import torch
 
 from src.tensor_ops import (
+    add_channel_dim,
     channel_mean,
     channels_last,
     flatten_batch,
@@ -57,3 +58,26 @@ def test_channel_mean():
 
     assert torch.equal(result, expected)
 
+def test_add_channel_dim():
+    A=torch.Tensor(
+	[
+	    [
+		[1,2,3],
+		[4,5,6]
+	    ],
+	    [
+		[7,8,9],
+		[10,11,12]
+	    ]
+	]
+    )
+    result = add_channel_dim(A)
+    expected = torch.Tensor( 
+	[
+	    [  [ [1,2,3],[4,5,6] ]    ],
+
+	    [  [ [7,8,9],[10,11,12] ]    ]
+
+	]
+    )
+    assert torch.equal(result, expected)
