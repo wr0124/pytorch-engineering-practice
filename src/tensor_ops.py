@@ -14,3 +14,6 @@ def channels_last(x:torch.Tensor) -> torch.Tensor:
 
 def spatial_mean(x:torch.Tensor)->torch.Tensor:
     return torch.mean(x, dim=(2,3), keepdim=True)
+
+def channel_mean(x:torch.Tensor) -> torch.Tensor:
+    return torch.mean(x, dim = 1, keepdim=True )

@@ -1,6 +1,7 @@
 import torch
 
 from src.tensor_ops import (
+    channel_mean,
     channels_last,
     flatten_batch,
     flatten_batch_reshape,
@@ -33,3 +34,26 @@ def test_spatial_mean():
 	)
     result = spatial_mean(A)
     assert  torch.equal ( result , torch.Tensor( [ [[ [2]] ,  [ [5]]  ], [[ [2]] ,  [ [5]]  ]  ] ) )
+
+def test_channel_mean():
+    A = torch.Tensor(
+        [
+            [
+                [[1, 2], [3, 4]],
+                [[5, 6], [7, 8]],
+            ]
+        ]
+    )
+
+    result = channel_mean(A)
+
+    expected = torch.Tensor(
+        [
+            [
+                [[3, 4], [5, 6]]
+            ]
+        ]
+    )
+
+    assert torch.equal(result, expected)
+
