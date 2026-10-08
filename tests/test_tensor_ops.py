@@ -4,6 +4,7 @@ from src.tensor_ops import (
     add_channel_dim,
     channel_mean,
     channels_last,
+    first_image,
     flatten_batch,
     flatten_batch_reshape,
     remove_channel_dim,
@@ -103,6 +104,34 @@ def test_remove_channel_dim():
 		[4,5,6]
 	    ]
 
+	]
+	)
+    assert torch.equal(result, expected)
+
+
+def test_first_image( ):
+    A=torch.Tensor(
+	[
+	    [
+		[
+		[1,2],[3,4]	
+		]
+	    ],
+            [
+                [
+                [5,6],[7,8]
+                ]
+            ]
+	]
+	)
+    result = first_image(A)
+    expected = torch.Tensor(
+        [   
+            [   
+                [
+                [1,2],[3,4]
+                ]
+            ]
 	]
 	)
     assert torch.equal(result, expected)

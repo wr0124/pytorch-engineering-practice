@@ -25,3 +25,7 @@ def add_channel_dim(x:torch.Tensor) -> torch.Tensor:
 
 def remove_channel_dim(x:torch.Tensor) -> torch.Tensor:
     return torch.squeeze(x, 1 )
+
+
+def first_image(x: torch.Tensor ) -> torch.Tensor:      
+    return x[0:1,:,:,:]
