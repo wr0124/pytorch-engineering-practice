@@ -21,3 +21,7 @@ def channel_mean(x:torch.Tensor) -> torch.Tensor:
 
 def add_channel_dim(x:torch.Tensor) -> torch.Tensor:
     return torch.unsqueeze(x,1)
+
+
+def remove_channel_dim(x:torch.Tensor) -> torch.Tensor:
+    return torch.squeeze(x, 1 )

@@ -6,6 +6,7 @@ from src.tensor_ops import (
     channels_last,
     flatten_batch,
     flatten_batch_reshape,
+    remove_channel_dim,
     spatial_mean,
 )
 
@@ -80,4 +81,28 @@ def test_add_channel_dim():
 
 	]
     )
+    assert torch.equal(result, expected)
+
+
+def test_remove_channel_dim():
+    A=torch.Tensor(
+	[ 
+	    [
+	    [
+		[1,2,3],
+		[4,5,6]
+	    ]
+	    ]
+	]
+    )
+    result = remove_channel_dim(A)
+    expected = torch.Tensor(
+	[
+	    [
+		[1,2,3],
+		[4,5,6]
+	    ]
+
+	]
+	)
     assert torch.equal(result, expected)
