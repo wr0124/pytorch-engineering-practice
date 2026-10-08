@@ -7,6 +7,7 @@ from src.tensor_ops import (
     first_image,
     flatten_batch,
     flatten_batch_reshape,
+    matrix_multiply,
     remove_channel_dim,
     spatial_mean,
     top_left_crop,
@@ -84,4 +85,13 @@ def test_top_left_crop():
     A = torch.Tensor([[[[1, 2, 3], [4, 5, 6], [7, 8, 9]]]])
     result = top_left_crop(A)
     expected = torch.Tensor([[[[1, 2], [4, 5]]]])
+    assert torch.equal(result, expected)
+
+
+def test_matrix_multiply():
+    A = torch.Tensor([[1, 2, 3], [4, 5, 6]])
+
+    B = torch.Tensor([[1, 2], [3, 4], [5, 6]])
+    result = matrix_multiply(A, B)
+    expected = torch.Tensor([[22, 28], [49, 64]])
     assert torch.equal(result, expected)

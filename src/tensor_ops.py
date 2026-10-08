@@ -37,3 +37,7 @@ def first_image(x: torch.Tensor) -> torch.Tensor:
 
 def top_left_crop(x: torch.Tensor) -> torch.Tensor:
     return x[:, :, 0:2, 0:2]
+
+
+def matrix_multiply(a: torch.Tensor, b: torch.Tensor) -> torch.Tensor:
+    return a @ b
