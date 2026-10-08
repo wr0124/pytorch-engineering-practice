@@ -41,3 +41,9 @@ def top_left_crop(x: torch.Tensor) -> torch.Tensor:
 
 def matrix_multiply(a: torch.Tensor, b: torch.Tensor) -> torch.Tensor:
     return a @ b
+
+
+def normalize_images(x: torch.Tensor) -> torch.Tensor:
+    x_mean = torch.mean(x, dim=(1, 2, 3), keepdim=True)
+    x_std = torch.std(x, dim=(1, 2, 3), correction=0, keepdim=True)
+    return (x - x_mean) / (x_std + 1e-8)

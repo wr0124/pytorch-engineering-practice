@@ -8,6 +8,7 @@ from src.tensor_ops import (
     flatten_batch,
     flatten_batch_reshape,
     matrix_multiply,
+    normalize_images,
     remove_channel_dim,
     spatial_mean,
     top_left_crop,
@@ -95,3 +96,25 @@ def test_matrix_multiply():
     result = matrix_multiply(A, B)
     expected = torch.Tensor([[22, 28], [49, 64]])
     assert torch.equal(result, expected)
+
+
+def test_normalize_images_shape():
+    A = torch.randn(4, 3, 16, 16)
+    result = normalize_images(A)
+    assert result.shape == (4, 3, 16, 16)
+
+
+def test_normalize_images_mean():
+    A = torch.randn(4, 3, 16, 16)
+    nor_A = normalize_images(A)
+    result = torch.mean(nor_A, dim=(1, 2, 3))
+    expected = torch.Tensor(torch.zeros_like(result))
+    assert torch.allclose(result, expected, atol=1e-6)
+
+
+def test_normalize_images_std():
+    A = torch.randn(4, 3, 16, 16)
+    nor_A = normalize_images(A)
+    std_A = torch.std(nor_A, dim=(1, 2, 3), correction=0)
+    expected = torch.ones_like(std_A)
+    assert torch.allclose(expected, std_A, atol=1e-6)
