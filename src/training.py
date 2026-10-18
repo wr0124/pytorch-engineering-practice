@@ -16,3 +16,16 @@ def train_step(
     loss.backward()
     optimizer.step()
     return loss
+
+
+def validation_step(
+    model: nn.Module,
+    inputs: torch.Tensor,
+    targets: torch.Tensor,
+) -> torch.Tensor:
+    model.eval()
+    with torch.no_grad():
+        predictions = model(inputs)
+    loss = compute_mse_loss(predictions, targets)
+    return loss
+
