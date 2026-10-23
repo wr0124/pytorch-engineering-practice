@@ -20,3 +20,10 @@ x = torch.randn(8,4)
 model = SimpleMLP()
 output = model(x) 
 print(output.shape)
+
+for para in model.parameters():
+    print(para)
+
+for name, param in model.named_parameters():
+    print(name, param.shape )
+    print(param.data)
