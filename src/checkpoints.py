@@ -25,3 +25,4 @@ def load_model(model, path):
     state = torch.load(path, weights_only = True)
     model.load_state_dict(state)
     return model
+

@@ -19,3 +19,12 @@ def test_load_model(tmp_path):
     model2_load = load_model(model2, pth)
     assert torch.equal(model2_load.weight, model.weight)
     assert torch.equal(model2_load.bias, model.bias)
+
+
+def test_seed():
+    torch.manual_seed(42)
+    model = torch.nn.Linear(4,2)
+    torch.manual_seed(42)
+    model2 = torch.nn.Linear(4,2)
+    assert torch.equal(model.weight, model2.weight)
+    assert torch.equal(model.bias, model2.bias)
