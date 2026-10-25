@@ -1,3 +1,4 @@
+import pytest
 import torch
 from torch import nn
 from torch.utils.data import DataLoader
@@ -63,3 +64,10 @@ def test_reprodicile_shuffling():
 
     assert torch.equal( torch.cat([batch[0] for batch in batches]), torch.cat([batch[0] for batch in batches2]))
 
+
+
+def test_missing_checkpoint(tmp_path ):
+    path = tmp_path/"model.pth"
+    model = torch.nn.Linear(4,2)
+    with pytest.raises( FileNotFoundError):
+        load_model(model, path)
