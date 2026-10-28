@@ -1,9 +1,10 @@
 import pytest
 import torch
-from torch import nn
+from torch import nn, optim
 from torch.utils.data import DataLoader
 
 from src.checkpoints import load_model, save_model
+from src.training import train_step
 
 
 def test_save_model(tmp_path):
@@ -71,3 +72,15 @@ def test_missing_checkpoint(tmp_path ):
     model = torch.nn.Linear(4,2)
     with pytest.raises( FileNotFoundError):
         load_model(model, path)
+
+
+def test_checkpoint_after_training(tmp_path):
+    model = nn.Linear(1,1,bias=False)
+    optimizer = optim.SGD(model.parameters(), lr=0.1)
+    inputs = torch.tensor([[2.0]])
+    targets = torch.tensor([[4.0]])
+    train_step(model, optimizer,inputs,targets)
+    save_model(model, tmp_path/"trained_model.pth")
+    model2 = nn.Linear(1,1,bias=False)
+    load_model(model2, tmp_path/"trained_model.pth")
+    assert torch.equal(model.weight, model2.weight)
