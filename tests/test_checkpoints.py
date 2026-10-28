@@ -84,3 +84,4 @@ def test_checkpoint_after_training(tmp_path):
     model2 = nn.Linear(1,1,bias=False)
     load_model(model2, tmp_path/"trained_model.pth")
     assert torch.equal(model.weight, model2.weight)
+    assert torch.equal(model(inputs), model2(inputs))
